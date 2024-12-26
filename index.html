@@ -6,90 +6,114 @@
     <title>Solar System Facts</title>
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f0f0f0;
-            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eaeaea;
+            color: #333;
             margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
         }
 
         .container {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            padding: 40px;
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
         }
 
         h1 {
-            font-size: 36px;
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5em;
             margin-bottom: 20px;
-            color: #333;
         }
 
-        #fact {
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            color: #666;
+        ul {
+            list-style-type: none;
+            padding: 0;
         }
 
-        button {
-            padding: 15px 30px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease-in-out;
+        li {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 5px solid #3498db;
+            border-radius: 8px;
+            transition: background 0.3s;
         }
 
-        button:hover {
-            background-color: #3e8e41;
+        li:hover {
+            background: #ecf0f1;
+        }
+
+        strong {
+            color: #3498db;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Solar System Fun Facts</h1>
-        <p id="fact"></p>
-        <button id="nextFact">Next Fact</button>
+        <h1>Fun Facts About Our Solar System</h1>
+        <ul id="facts-list"></ul>
     </div>
     <script>
-        const facts = [
-            "Neptune may have a core composed of superheated, crystallized carbon—a giant diamond!",
-            "Mars has two small moons, Phobos and Deimos, with Phobos slowly spiraling towards the planet.",
-            "A single day on Venus is longer than its entire year due to its slow rotation.",
-            "Olympus Mons on Mars is the largest volcano in the solar system, towering three times higher than Mount Everest.",
-            "Jupiter's moon Europa is believed to have a vast ocean of liquid water beneath its icy surface.",
-            "Jupiter's Great Red Spot is a giant storm raging for hundreds of years, large enough to fit three Earths.",
-            "Neptune experiences the strongest winds in the solar system, reaching speeds over 1,200 miles per hour.",
-            "Mercury is the smallest planet in the solar system, slightly larger than Earth's Moon.",
-            "All four gas giants—Jupiter, Saturn, Uranus, and Neptune—have ring systems, though Saturn's are the most prominent.",
-            "Pluto, a dwarf planet, has surprisingly tall mountains, some even taller than Earth's Mount Everest."
+        const solarSystemFacts = [
+            {
+                fact: "The Sun is Massive",
+                description: "The Sun accounts for about 99.86% of the total mass of the solar system. It is so large that about 1.3 million Earths could fit inside it!"
+            },
+            {
+                fact: "Mercury's Extreme Temperatures",
+                description: "Mercury experiences the most extreme temperature fluctuations in the solar system, with daytime temperatures soaring to 800°F (427°C) and nighttime temperatures plummeting to -330°F (-201°C)."
+            },
+            {
+                fact: "Venus is the Hottest Planet",
+                description: "Despite being second from the Sun, Venus is the hottest planet in our solar system, with surface temperatures reaching around 900°F (475°C) due to a thick atmosphere of carbon dioxide and sulfuric acid clouds."
+            },
+            {
+                fact: "Earth's Unique Water",
+                description: "Earth is the only planet known to have liquid water on its surface, covering about 71% of the planet. This is crucial for supporting life."
+            },
+            {
+                fact: "Mars' Olympus Mons",
+                description: "Mars is home to Olympus Mons, the tallest volcano and largest shield volcano in the solar system, standing about 13.6 miles (22 kilometers) high—nearly three times the height of Mount Everest."
+            },
+            {
+                fact: "Jupiter's Great Red Spot",
+                description: "Jupiter has a massive storm known as the Great Red Spot, which has been raging for at least 350 years. It is so large that three Earths could fit inside it."
+            },
+            {
+                fact: "Saturn's Rings",
+                description: "Saturn is famous for its stunning rings, which are made up of ice and rock particles. The rings are about 175,000 miles (282,000 kilometers) wide but only about 30 feet (10 meters) thick."
+            },
+            {
+                fact: "Uranus' Unique Tilt",
+                description: "Uranus is unique in that it rotates on its side, with an axial tilt of about 98 degrees. This means its poles are almost in the plane of its orbit around the Sun."
+            },
+            {
+                fact: "Neptune's Winds",
+                description: "Neptune has the strongest winds in the solar system, with speeds reaching up to 1,200 miles per hour (2,000 kilometers per hour). These winds are faster than those of any other planet."
+            },
+            {
+                fact: "Dwarf Planets",
+                description: "Pluto, once considered the ninth planet, is now classified as a dwarf planet. There are several other recognized dwarf planets in our solar system, including Eris, Haumea, and Makemake."
+            }
         ];
 
-        const factElement = document.getElementById('fact');
-        const nextButton = document.getElementById('nextFact');
+        const factsList = document.getElementById('facts-list');
 
-        let currentFactIndex = 0;
-
-        function showFact() {
-            factElement.textContent = facts[currentFactIndex];
-        }
-
-        function nextFact() {
-            currentFactIndex = (currentFactIndex + 1) % facts.length;
-            showFact();
-        }
-
-        showFact();
-        nextButton.addEventListener('click', nextFact);
+        solarSystemFacts.forEach(fact => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `<strong>${fact.fact}</strong>: ${fact.description}`;
+            factsList.appendChild(listItem);
+        });
     </script>
 </body>
 </html>
-
